@@ -15,6 +15,9 @@ public class Product {
         this.cost = cost.setScale(0, RoundingMode.CEILING);
     }
 
+    public Product() {
+    }
+
     @Override
     public String toString() {
         return "id: " + id + "; Название: " + title + "; Цена: " +
