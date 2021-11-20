@@ -43,4 +43,23 @@ public class InMemoryProductRepository implements ProductRepository {
         return Collections.unmodifiableList(products);
     }
 
+    @Override
+    public boolean addProduct(Product product) {
+        if (isTitleExist(product.getTitle())) {
+            return false;
+        }
+        product.setId((long) products.size() + 1);
+        products.add(product);
+        return true;
+    }
+
+    private boolean isTitleExist(String title) {
+        for (Product product : products) {
+            if (product.getTitle().equals(title)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
