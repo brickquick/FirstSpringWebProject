@@ -4,14 +4,13 @@ import org.springframework.stereotype.Component;
 import qu.brick.spring.web.data.Product;
 
 import javax.annotation.PostConstruct;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Component
-public class ProductRepository {
+public class inMemoryProductRepository {
 
     private List<Product> products;
 

@@ -2,29 +2,28 @@ package qu.brick.spring.web.services;
 
 import org.springframework.stereotype.Service;
 import qu.brick.spring.web.data.Product;
-import qu.brick.spring.web.repositories.ProductRepository;
+import qu.brick.spring.web.repositories.inMemoryProductRepository;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
+    private inMemoryProductRepository inMemoryProductRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductService(inMemoryProductRepository inMemoryProductRepository) {
+        this.inMemoryProductRepository = inMemoryProductRepository;
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.getAllProducts();
+        return inMemoryProductRepository.getAllProducts();
     }
 
     public void deleteById(Long id) {
-        productRepository.deleteById(id);
+        inMemoryProductRepository.deleteById(id);
     }
 
     public void changeCost(Long studentId, Integer delta) {
-        Product product = productRepository.findById(studentId);
+        Product product = inMemoryProductRepository.findById(studentId);
         product.setCost(product.getCost() + delta);
     }
 }

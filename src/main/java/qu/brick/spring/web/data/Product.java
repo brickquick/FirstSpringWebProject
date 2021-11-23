@@ -1,7 +1,5 @@
 package qu.brick.spring.web.data;
 
-import java.math.BigInteger;
-
 public class Product {
 
     private Long id;
