@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class ProductService {
+
     private ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
@@ -26,5 +27,7 @@ public class ProductService {
     public void changeCost(Long studentId, Integer delta) {
         Product product = productRepository.findById(studentId);
         product.setCost(product.getCost().add(BigInteger.valueOf(delta)));
+        productRepository.update(product);
     }
+
 }

@@ -1,15 +1,27 @@
 package qu.brick.spring.web.data;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 
+@Entity
+@Table(name = "products")@NamedQueries({
+        @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+        @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
+})
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "cost")
     private BigInteger cost;
 
-    public Product(Long id, String title, BigInteger cost) {
-        this.id = id;
+    public Product(String title, BigInteger cost) {
         this.title = title;
         this.cost = cost;
     }
