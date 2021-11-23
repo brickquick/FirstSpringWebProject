@@ -4,24 +4,25 @@ import org.springframework.stereotype.Component;
 import qu.brick.spring.web.data.Product;
 
 import javax.annotation.PostConstruct;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Component
-public class inMemoryProductRepository {
+public class ProductRepository {
 
     private List<Product> products;
 
     @PostConstruct
     public void init() {
         products = new ArrayList<>(Arrays.asList(
-                new Product(1L, "Bread", (int) (Math.random() * 100)),
-                new Product(2L, "Milk", (int) (Math.random() * 100)),
-                new Product(3L, "Apples", (int) (Math.random() * 100)),
-                new Product(4L, "Bananas", (int) (Math.random() * 100)),
-                new Product(5L, "Oranges", (int) (Math.random() * 100))
+                new Product(1L, "Bread", BigInteger.valueOf((long) (Math.random() * 100))),
+                new Product(2L, "Milk", BigInteger.valueOf((long) (Math.random() * 100))),
+                new Product(3L, "Apples", BigInteger.valueOf((long) (Math.random() * 100))),
+                new Product(4L, "Bananas", BigInteger.valueOf((long) (Math.random() * 100))),
+                new Product(5L, "Oranges", BigInteger.valueOf((long) (Math.random() * 100)))
         ));
     }
 

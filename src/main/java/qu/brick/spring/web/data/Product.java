@@ -1,18 +1,17 @@
 package qu.brick.spring.web.data;
 
+import java.math.BigInteger;
+
 public class Product {
 
     private Long id;
     private String title;
-    private Integer cost;
+    private BigInteger cost;
 
-    public Product(Long id, String title, Integer cost) {
+    public Product(Long id, String title, BigInteger cost) {
         this.id = id;
         this.title = title;
         this.cost = cost;
-    }
-
-    public Product() {
     }
 
     public Product() {
@@ -35,7 +34,7 @@ public class Product {
         return title;
     }
 
-    public Integer getCost() {
+    public BigInteger getCost() {
         return cost;
     }
 
@@ -47,7 +46,7 @@ public class Product {
         this.title = title;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(BigInteger cost) {
         this.cost = cost;
     }
 
