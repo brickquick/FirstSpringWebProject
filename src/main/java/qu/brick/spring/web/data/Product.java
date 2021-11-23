@@ -1,18 +1,18 @@
 package qu.brick.spring.web.data;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class Product {
 
     private Long id;
     private String title;
-    private BigDecimal cost;
+    private Integer cost;
 
-    public Product(Long id, String title, BigDecimal cost) {
+    public Product(Long id, String title, Integer cost) {
         this.id = id;
         this.title = title;
-        this.cost = cost.setScale(0, RoundingMode.CEILING);
+        this.cost = cost;
+    }
+
+    public Product() {
     }
 
     public Product() {
@@ -20,8 +20,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return "id: " + id + "; Название: " + title + "; Цена: " +
-                cost + "$;";
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", cost=" + cost +
+                '}';
     }
 
     public Long getId() {
@@ -32,7 +35,7 @@ public class Product {
         return title;
     }
 
-    public BigDecimal getCost() {
+    public Integer getCost() {
         return cost;
     }
 
@@ -44,7 +47,7 @@ public class Product {
         this.title = title;
     }
 
-    public void setCost(BigDecimal cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 
