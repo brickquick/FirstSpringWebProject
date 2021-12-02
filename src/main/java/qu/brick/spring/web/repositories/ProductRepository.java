@@ -2,15 +2,12 @@ package qu.brick.spring.web.repositories;
 
 import org.springframework.stereotype.Component;
 import qu.brick.spring.web.data.Product;
-import qu.brick.spring.web.data.ProductDao;
-import qu.brick.spring.web.data.ProductDaoImpl;
+import qu.brick.spring.web.dao.ProductDao;
+import qu.brick.spring.web.dao.ProductDaoImpl;
 import qu.brick.spring.web.utils.SessionFactoryUtils;
 
 import javax.annotation.PostConstruct;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -22,20 +19,13 @@ public class ProductRepository {
 
     @PostConstruct
     public void init() {
-//        products = new ArrayList<>(Arrays.asList(
-//                new Product("Bread", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Milk", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Apples", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Bananas", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Oranges", BigInteger.valueOf((long) (Math.random() * 100)))
-//        ));
         sessionFactoryUtils.init();
         try {
-            productDao.save(new Product("Bread", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Milk", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Apples", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Bananas", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Oranges", BigInteger.valueOf((long) (Math.random() * 100))));
+            productDao.saveOrUpdate(new Product("Bread", BigInteger.valueOf((long) (Math.random() * 100))));
+            productDao.saveOrUpdate(new Product("Milk", BigInteger.valueOf((long) (Math.random() * 100))));
+            productDao.saveOrUpdate(new Product("Apples", BigInteger.valueOf((long) (Math.random() * 100))));
+            productDao.saveOrUpdate(new Product("Bananas", BigInteger.valueOf((long) (Math.random() * 100))));
+            productDao.saveOrUpdate(new Product("Oranges", BigInteger.valueOf((long) (Math.random() * 100))));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

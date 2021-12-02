@@ -2,9 +2,11 @@ package qu.brick.spring.web.data;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.List;
 
 @Entity
-@Table(name = "products")@NamedQueries({
+@Table(name = "products")
+@NamedQueries({
         @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
         @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
 })
@@ -20,6 +22,9 @@ public class Product {
 
     @Column(name = "cost")
     private BigInteger cost;
+
+    @OneToMany(mappedBy = "product")
+    private List<Order> orders;
 
     public Product(String title, BigInteger cost) {
         this.title = title;
@@ -50,6 +55,10 @@ public class Product {
         return cost;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -62,4 +71,7 @@ public class Product {
         this.cost = cost;
     }
 
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }
