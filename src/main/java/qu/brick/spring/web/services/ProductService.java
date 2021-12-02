@@ -27,6 +27,10 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
+    public boolean save(Product product){
+        return productRepository.save(product) != null;
+    }
+
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
@@ -37,7 +41,15 @@ public class ProductService {
         product.setCost(product.getCost().add(BigInteger.valueOf(delta)));
     }
 
-    public List<Product> findByCostBetween(Integer min, Integer max) {
+    public List<Product> findByCostBetween(BigInteger min, BigInteger max) {
         return productRepository.findAllByCostBetween(min, max);
+    }
+
+    public List<Product> findAllProductsByCostGreaterThan(BigInteger min) {
+        return productRepository.findAllProductsByCostGreaterThan(min);
+    }
+
+    public List<Product> findAllProductsByCostLessThan(BigInteger max) {
+        return productRepository.findAllProductsByCostLessThan(max);
     }
 }

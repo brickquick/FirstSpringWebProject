@@ -29,4 +29,8 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     $scope.loadProducts();
+
+    $scope.addProduct = function (title, cost) {
+        $http.post(contextPath + '/products/add/title=' + title + '&cost=' + cost);
+    }
 });
