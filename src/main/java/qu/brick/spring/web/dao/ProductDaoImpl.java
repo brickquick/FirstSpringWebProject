@@ -1,10 +1,17 @@
-package qu.brick.spring.web.data;
+package qu.brick.spring.web.dao;
 
 import org.hibernate.Session;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+import qu.brick.spring.web.data.Customer;
+import qu.brick.spring.web.data.Order;
+import qu.brick.spring.web.data.Product;
 import qu.brick.spring.web.utils.SessionFactoryUtils;
 
 import java.util.List;
 
+@Component
+@Primary
 public class ProductDaoImpl implements ProductDao {
 
     private SessionFactoryUtils sessionFactoryUtils;
@@ -47,11 +54,13 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void save(Product product) {
+    public Product saveOrUpdate(Product product) {
         try (Session session = sessionFactoryUtils.getSession()) {
             session.beginTransaction();
             session.saveOrUpdate(product);
+            Product productFromDB = session.get(Product.class, product.getId());
             session.getTransaction().commit();
+            return productFromDB;
         }
     }
 
@@ -81,13 +90,13 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product saveOrUpdate(Product product) {
+    public List<Order> getOrdersById(Long id) {
         try (Session session = sessionFactoryUtils.getSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(product);
-            Product productFromDB = session.get(Product.class, product.getId());
+            Product product = session.get(Product.class, id);
+            List<Order> customers = product.getOrders();
             session.getTransaction().commit();
-            return productFromDB;
+            return customers;
         }
     }
 

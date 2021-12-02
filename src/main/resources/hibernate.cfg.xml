@@ -15,5 +15,6 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <mapping class="qu.brick.spring.web.data.Product"/>
+        <mapping class="qu.brick.spring.web.data.Customer"/>
     </session-factory>
 </hibernate-configuration>
