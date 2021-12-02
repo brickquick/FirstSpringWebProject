@@ -1,86 +1,24 @@
 package qu.brick.spring.web.repositories;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import qu.brick.spring.web.data.Product;
-import qu.brick.spring.web.data.ProductDao;
-import qu.brick.spring.web.data.ProductDaoImpl;
-import qu.brick.spring.web.utils.SessionFactoryUtils;
 
-import javax.annotation.PostConstruct;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-@Component
-public class ProductRepository {
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    private List<Product> products;
-    private SessionFactoryUtils sessionFactoryUtils = new SessionFactoryUtils();
-    private ProductDao productDao = new ProductDaoImpl(sessionFactoryUtils);
+    List<Product> findAll();
 
-    @PostConstruct
-    public void init() {
-//        products = new ArrayList<>(Arrays.asList(
-//                new Product("Bread", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Milk", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Apples", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Bananas", BigInteger.valueOf((long) (Math.random() * 100))),
-//                new Product("Oranges", BigInteger.valueOf((long) (Math.random() * 100)))
-//        ));
-        sessionFactoryUtils.init();
-        try {
-            productDao.save(new Product("Bread", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Milk", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Apples", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Bananas", BigInteger.valueOf((long) (Math.random() * 100))));
-            productDao.save(new Product("Oranges", BigInteger.valueOf((long) (Math.random() * 100))));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-//            sessionFactoryUtils.shutdown();
-        }
-    }
+    Optional<Product> findById(Long id);
 
-    public Product findById(Long id) {
-        return productDao.findById(id);
-//        return sessionFactoryUtils.getSession().createNamedQuery("Product.findById", Product.class)
-//                .setParameter("id", id).getSingleResult();
-    }
+    // @Query("select p from Product p where p.cost between ?1 and ?2")
+    List<Product> findAllByCostBetween(Integer min, Integer max);
 
-    public int getProductsSize() {
-        return products.size();
-    }
+    // @Query("select p from Product p where p.title = :title")
+    Optional<Product> findByTitle(String title);
 
-    public List<Product> getAllProducts() {
-        return productDao.findAll();
-    }
-
-    public void deleteById(Long id) {
-        productDao.deleteById(id);
-    }
-
-    public void update(Product product) {
-        productDao.saveOrUpdate(product);
-    }
-
-//    public boolean addProduct(Product product) {
-//        if (isTitleExist(product.getTitle())) {
-//            return false;
-//        }
-//        product.setId((long) products.size() + 1);
-//        products.add(product);
-//        return true;
-//    }
-//
-//    private boolean isTitleExist(String title) {
-//        for (Product product : products) {
-//            if (product.getTitle().equals(title)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
+    void deleteById(Long id);
 }
