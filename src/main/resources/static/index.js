@@ -5,7 +5,27 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $http.get(contextPath + '/products')
             .then(function (response) {
                 $scope.ProductsList = response.data;
+                $scope.getPages();
             });
+    };
+
+    $scope.getPages = function () {
+        $http.get(contextPath + '/products/pages')
+            .then(function (response) {
+                $scope.Pages = response.data;
+            });
+    };
+
+    $scope.toPage = function (page) {
+        $http({
+            url: contextPath + '/products',
+            method: 'GET',
+            params: {
+                page: page
+            }
+        }).then(function (response) {
+            $scope.loadProducts();
+        });
     };
 
     $scope.deleteProduct = function (productId) {
@@ -28,9 +48,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     }
 
-    $scope.loadProducts();
 
-    $scope.addProduct = function (title, cost) {
-        $http.post(contextPath + '/products/add/title=' + title + '&cost=' + cost);
-    }
+    $scope.loadProducts();
 });
