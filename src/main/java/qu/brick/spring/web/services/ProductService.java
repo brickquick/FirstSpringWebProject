@@ -37,7 +37,7 @@ public class ProductService {
 
     @Transactional
     public void changeCost(Long productId, Integer delta) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Unable to change student's score. Student not found, id: " + productId));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Unable to change product's cost. Product not found, id: " + productId));
         product.setCost(product.getCost().add(BigInteger.valueOf(delta)));
     }
 
